@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { faSignIn } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
 import React from 'react';
 
 const IntroCta = () => {
@@ -45,10 +46,12 @@ const IntroCta = () => {
                             </span>
                         </strong>
                     </div>
-                    <button className='btn btn-sm btn-success m-2'>
-                        <FontAwesomeIcon className='w-4 h-4' icon={faSignIn} />
-                        <span className='mr-1 ml-1'>{`Start Now !!`}</span>
-                    </button>
+                    <Link href="/signIn">
+                        <a className='btn btn-sm btn-success m-2'>
+                            <FontAwesomeIcon className='w-4 h-4' icon={faSignIn} />
+                            <span className='mr-1 ml-1'>{`Start Now !!`}</span>
+                        </a>
+                    </Link>
 
                 </div>
             </div>

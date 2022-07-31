@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React from 'react';
+import Logo from '../utils/logo';
 
 const HomeFooter = () => {
     return (
@@ -14,12 +13,7 @@ const HomeFooter = () => {
                 <div className="lg:flex lg:items-end lg:justify-between">
                     <div>
                         <div className="flex justify-center text-teal-300 lg:justify-start">
-                            <Link href="/">
-                                <a className="block text-teal-300">
-                                    <span className="sr-only">Home</span>
-                                    <img src="images/finSlateLogo.png" alt="Fin-Slate" />
-                                </a>
-                            </Link>
+                            <Logo light={true} />
                         </div>
 
                         <p className="max-w-md mx-auto mt-6 leading-relaxed text-center text-gray-400 lg:text-left">
