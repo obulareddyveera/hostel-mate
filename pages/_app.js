@@ -1,3 +1,6 @@
+import { ApolloProvider } from '@apollo/client';
+import {apolloClientEntity} from './../client/apollo';
+
 import '../styles/globals.css'
 
 export default function App({
@@ -5,6 +8,8 @@ export default function App({
   pageProps: { session, ...pageProps },
 }) {
   return (
-    <Component {...pageProps} />
+    <ApolloProvider client={apolloClientEntity}>
+      <Component {...pageProps} />
+    </ApolloProvider>
   )
 }

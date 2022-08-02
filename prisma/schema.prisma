@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model Code {
+  id          Int          @id @default(autoincrement())
+  name        String
+  description String
+  CodeValues  CodeValues[]
+}
+
+model CodeValues {
+  id       Int     @id @default(autoincrement())
+  codeId   Int
+  Code     Code?   @relation(fields: [codeId], references: [id])
+  name     String
+  value    String
+  isActive Boolean
+
+  @@index([id])
+}
+
+model Roles {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String
+  OrgUsers    OrgUsers[]
+}
+
+model Users {
+  id          Int        @id @default(autoincrement())
+  displayName String
+  familyName  String
+  givenName   String
+  email       String
+  photoUrl    String
+  googleId    String
+  OrgUsers    OrgUsers[]
+
+  @@index([id])
+}
+
+model OrgUsers {
+  id     Int    @id @default(autoincrement())
+  userId Int
+  Users  Users? @relation(fields: [userId], references: [id])
+  roleId Int
+  Roles  Roles? @relation(fields: [roleId], references: [id])
+
+  @@index([id])
+}
