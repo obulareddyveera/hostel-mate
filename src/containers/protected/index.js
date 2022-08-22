@@ -1,16 +1,24 @@
 import React, { useEffect } from 'react';
 import { useRecoilState } from "recoil";
 import { isMobile } from 'react-device-detect';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { gql, useQuery } from '@apollo/client';
+import { faBars, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import ProtectedNav from '../../components/nav/protectedNav';
 import ProtectedSideNav from '../../components/nav/protectedSideNav';
 import { userProfile } from '../../recoil/atoms/userProfile';
 
+const ORGUSER_BY_GOOGLEID = gql `query orgUserByGoogleId($userGoogleId: String!) {
+    orgUserByGoogleId(googleId: $userGoogleId) {
+        id
+        roleId
+    }
+  }`
+
 const ProtectedHome = (props) => {
     const [userProfileAtom, setUserProfileAtom] = useRecoilState(userProfile);
-    const { toggleMenu } = userProfileAtom;
+    const { toggleMenu, user } = userProfileAtom;
 
     useEffect(() => {
         setUserProfileAtom({
@@ -28,7 +36,7 @@ const ProtectedHome = (props) => {
         })
     }
 
-    console.log('--== userProfileAtom ', userProfileAtom);
+    const { loading, error, data } = useQuery(ORGUSER_BY_GOOGLEID, { variables: {userGoogleId: user.googleId} })
     return (
         <>
             <ProtectedNav profile={props.user} />
@@ -39,8 +47,27 @@ const ProtectedHome = (props) => {
                         <FontAwesomeIcon className='w-5 h-5 opacity-75' icon={faBars} />
                     </button>
                 </div>
+                {
+                    loading && (
+                        <>
+                            <div className="flex justify-center items-center">
+                                <FontAwesomeIcon icon={faSpinner} className="w-12 h-12" />
+                            </div>
+                        </>
+                    )
+                }
                 <div className='flex flex-col'>
-                    <div>Justify</div>
+                    {
+                        data && data.orgUserByGoogleId && data.orgUserByGoogleId.id ? (
+                            <>
+                                <div>Register Organization</div>
+                            </>
+                        ) : (
+                            <>
+                                <div>Register User</div>
+                            </>
+                        )
+                    }
                 </div>
             </div>
         </>
