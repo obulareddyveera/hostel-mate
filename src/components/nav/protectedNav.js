@@ -1,10 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
+import { useRecoilValue } from "recoil";
+import { userProfileSelector } from '../../recoil/selectors/userProfile';
 import Logo from '../utils/logo';
 
-const ProtectedNav = ({ profile }) => {
-    const { photoUrl, displayName } = profile;
-    console.log('--== ProtectedNav ', profile);
+const ProtectedNav = () => {
+    const userProfileAtom = useRecoilValue(userProfileSelector)
+    const { photoUrl, displayName } = userProfileAtom.user;
     return (
         <>
             <div className="navbar bg-neutral text-neutral-content">

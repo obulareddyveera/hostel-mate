@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-import HomeContainer from '../client/containers/public/home'
+import HomeContainer from '../src/containers/public/home'
 
 export default function Home() {
   return (

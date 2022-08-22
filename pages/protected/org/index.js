@@ -3,7 +3,7 @@ import Head from 'next/head';
 import cookie from 'cookie';
 import jwt from 'jsonwebtoken';
 import { gql } from '@apollo/client';
-import { apolloClientEntity } from '../../../client/apollo';
+import { apolloClientEntity } from '../../../src/apollo';
 
 const OrgRoute = (props) => {
   console.log('--== OrgRoute ', props);

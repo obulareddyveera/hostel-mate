@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import React from 'react';
-import SignInContainer from '../client/containers/auth/signIn';
+import SignInContainer from '../src/containers/auth/signIn';
 
 const SignIn = () => {
     return (

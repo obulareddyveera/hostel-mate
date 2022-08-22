@@ -1,11 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
-import { faInvision, faTeamspeak } from '@fortawesome/free-brands-svg-icons';
-import { faAngleDown, faBackward, faRightArrowFromBracket, faBank, faBars, faCalendar, faDemocrat, faGear, faMoneyBill, faPeopleGroup, faSignOut, faStop, faUpDown, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { faInvision, faTeamspeak } from '@fortawesome/free-brands-svg-icons';
+import { faAngleDown, faCalendar, faDemocrat, faGear, faMoneyBill, faPeopleGroup, faSignOut, faStop, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useRecoilValue } from "recoil";
 
-const ProtectedSideNav = ({ profile, handleToggleMenu, toggle = true }) => {
-    const { email, photoUrl, displayName } = profile
+import { userProfileSelector } from '../../recoil/selectors/userProfile';
+
+const ProtectedSideNav = ({ handleToggleMenu, toggle = true }) => {
+    const userProfileAtom = useRecoilValue(userProfileSelector)
+    const { email, photoUrl, displayName } = userProfileAtom.user
     return (
         <>
             <div className={`fixed w-full h-full md:flex`}>

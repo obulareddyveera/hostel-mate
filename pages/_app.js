@@ -1,5 +1,6 @@
 import { ApolloProvider } from '@apollo/client';
-import {apolloClientEntity} from './../client/apollo';
+import { RecoilRoot } from "recoil";
+import {apolloClientEntity} from './../src/apollo';
 
 import '../styles/globals.css'
 
@@ -8,8 +9,10 @@ export default function App({
   pageProps: { session, ...pageProps },
 }) {
   return (
+    <RecoilRoot>
     <ApolloProvider client={apolloClientEntity}>
       <Component {...pageProps} />
     </ApolloProvider>
+    </RecoilRoot>
   )
 }
