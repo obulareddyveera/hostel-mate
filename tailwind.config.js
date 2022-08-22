@@ -12,6 +12,9 @@ module.exports = {
         dancingScript: ['Dancing Script', 'cursive'],
         roboto: ['Roboto', 'sans-serif']
       },
+      backgroundImage: {
+        signIn: `url('/images/signIn/hostelMateSignInBg.png')`
+      }
     },
   },
   plugins: [require("daisyui")],
