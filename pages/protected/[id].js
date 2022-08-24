@@ -17,7 +17,9 @@ const OrgRoute = (props) => {
             <Head>
                 <title>HostelMate | Home</title>
             </Head>
-            <ProtectedHome {...props} />
+            <div className="bg-gray-200">
+                <ProtectedHome {...props} />
+            </div>
         </>
     )
 }
@@ -36,7 +38,7 @@ export async function getServerSideProps({ req, res, query, ...context }) {
                 "Content-type": "application/json; charset=UTF-8"
             }
         }).then(response => response.json());
-        console.log('--== userEntity ', userEntity);
+
         return {
             props: { ...userEntity, token: query.id }
         }

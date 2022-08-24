@@ -3,13 +3,9 @@ import React from 'react';
 import { faInvision, faTeamspeak } from '@fortawesome/free-brands-svg-icons';
 import { faAngleDown, faCalendar, faDemocrat, faGear, faMoneyBill, faPeopleGroup, faSignOut, faStop, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useRecoilValue } from "recoil";
 
-import { userProfileSelector } from '../../recoil/selectors/userProfile';
-
-const ProtectedSideNav = ({ handleToggleMenu, toggle = true }) => {
-    const userProfileAtom = useRecoilValue(userProfileSelector)
-    const { email, photoUrl, displayName } = userProfileAtom.user
+const ProtectedSideNav = ({ profile, handleToggleMenu, toggle = true }) => {
+    const { email, photoUrl, displayName } = profile;
     return (
         <>
             <div className={`fixed w-full h-full md:flex`}>

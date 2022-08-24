@@ -21,6 +21,10 @@ datasource db {
   referentialIntegrity = "prisma"
 }
 
+// ---- Run Schema Changes @ planetscale ---
+// ---- npx prisma db push -----------------
+// -----------------------------------------
+
 model Code {
   id          Int          @id @default(autoincrement())
   name        String
@@ -35,36 +39,75 @@ model CodeValues {
   name     String
   value    String
   isActive Boolean
+  Staff    Staff[]
 
   @@index([id])
 }
 
-model Roles {
-  id          Int        @id @default(autoincrement())
-  name        String
-  description String
-  OrgUsers    OrgUsers[]
-}
-
 model Users {
-  id          Int        @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   displayName String
   familyName  String
   givenName   String
   email       String
   photoUrl    String
   googleId    String
-  OrgUsers    OrgUsers[]
+  Hostel      Hostel[]
+  Staff       Staff[]
 
   @@index([id])
 }
 
-model OrgUsers {
-  id     Int    @id @default(autoincrement())
-  userId Int
-  Users  Users? @relation(fields: [userId], references: [id])
-  roleId Int
-  Roles  Roles? @relation(fields: [roleId], references: [id])
+model Hostel {
+  id        Int     @id @default(autoincrement())
+  name      String
+  address   String
+  pinPlace  String
+  city      String
+  state     String
+  pincode   String
+  country   String
+  primaryId Int
+  Users     Users?  @relation(fields: [primaryId], references: [id])
+  Staff     Staff[]
+  Floor     Floor[]
 
   @@index([id])
+}
+
+model Staff {
+  id         Int         @id @default(autoincrement())
+  hostelId   Int
+  Hostel     Hostel?     @relation(fields: [hostelId], references: [id])
+  userId     Int
+  Users      Users?      @relation(fields: [userId], references: [id])
+  roleId     Int
+  CodeValues CodeValues? @relation(fields: [roleId], references: [id])
+
+  @@index([id])
+}
+
+model Floor {
+  id       Int     @id @default(autoincrement())
+  hostelId Int
+  Hostel   Hostel? @relation(fields: [hostelId], references: [id])
+  roomId   Int
+  Room     Room[]
+}
+
+model Room {
+  id      Int    @id @default(autoincrement())
+  floorId Int
+  Floor   Floor? @relation(fields: [floorId], references: [id])
+  beds    Int
+  type    Int
+}
+
+model Assets {
+  id         Int    @id @default(autoincrement())
+  categoryId Int
+  groupId    Int
+  name       String
+  desc       String
+  cost       String
 }
