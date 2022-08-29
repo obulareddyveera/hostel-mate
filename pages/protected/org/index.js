@@ -2,8 +2,8 @@ import React from 'react';
 import Head from 'next/head';
 import cookie from 'cookie';
 import jwt from 'jsonwebtoken';
-import { gql } from '@apollo/client';
 import { apolloClientEntity } from '../../../src/apollo';
+import { GET_USER_BY_GOOGLEID } from '../../../src/apollo/queries/users';
 
 const OrgRoute = (props) => {
   console.log('--== OrgRoute ', props);
@@ -25,19 +25,7 @@ export async function getServerSideProps({ req, res }) {
 
   console.log('--== OrgRoute ::: tokenEntity ', tokenEntity);
   const { data } = await apolloClientEntity.query({
-    query: gql`
-  query userByGoogleId($id: String!) {
-    userByGoogleId(id: $id) {
-      id
-      displayName
-      familyName
-      givenName
-      email
-      photoUrl
-      googleId
-    }
-  }
-  `, variables: { id: tokenEntity.payload.id }
+    query: GET_USER_BY_GOOGLEID, variables: { id: tokenEntity.payload.id }
   })
 
 
